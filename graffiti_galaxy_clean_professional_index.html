@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Astrocade</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2Pkf1jrxD+QeS4Y3tcT1U1H6V+Z4Wx53A0RduCMsZ7C1H8e2+ig1c0Q1rQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      --bg: #0b0a10;
+      --card: #12111a;
+      --card-elev: #181726;
+      --text: #f3f3f5;
+      --muted: #b9b9c6;
+      --brand: #8a5cf6; /* neon-violet */
+      --brand-2: #19e3ff; /* cyan accent */
+      --ring: rgba(138, 92, 246, 0.35);
+      --radius: 18px;
+      --shadow: 0 6px 24px rgba(0,0,0,.35), 0 1px 0 rgba(255,255,255,.03) inset;
+    }
+
+    /* Reset & base */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 800px at 10% -5%, rgba(25,227,255,.07), transparent 50%),
+                  radial-gradient(1000px 600px at 110% 10%, rgba(138,92,246,.08), transparent 50%),
+                  var(--bg);
+      color: var(--text);
+      font-family: "Outfit", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.6;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+    /* Top Nav */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(120%) blur(10px);
+      background: linear-gradient(180deg, rgba(11,10,16,.8), rgba(11,10,16,.55));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav {
+      max-width: 1200px; margin: 0 auto; padding: 14px 20px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .brand-mark {
+      width: 36px; height: 36px; border-radius: 10px; background:
+        conic-gradient(from 130deg, var(--brand), var(--brand-2));
+      box-shadow: 0 0 24px rgba(138,92,246,.6), inset 0 0 18px rgba(25,227,255,.25);
+    }
+    .brand-name { font-family: "Orbitron", sans-serif; font-weight: 800; letter-spacing: .5px; }
+
+    .menu { display:flex; gap: 14px; align-items:center; }
+    .menu a { padding: 10px 14px; border-radius: 999px; color: var(--muted); }
+    .menu a:hover, .menu a[aria-current="page"] {
+      color: var(--text);
+      background: rgba(138,92,246,.12);
+      outline: 1px solid rgba(138,92,246,.25);
+    }
+    .menu-toggle { display:none; }
+
+    @media (max-width: 840px) {
+      .menu { display:none; }
+      .menu-toggle { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); }
+      .drawer {
+        position: fixed; inset: 0 0 0 35%;
+        background: var(--card);
+        border-left: 1px solid rgba(255,255,255,.08);
+        box-shadow: var(--shadow);
+        transform: translateX(100%);
+        transition: transform .25s ease;
+        padding: 22px;
+      }
+      .drawer.open { transform: translateX(0); }
+      .drawer a { display:block; padding: 12px 10px; border-radius: 10px; color: var(--muted); }
+      .drawer a:hover { background: rgba(255,255,255,.05); color: var(--text); }
+    }
+
+    /* Hero */
+    .hero {
+      max-width: 1200px; margin: 24px auto 0; padding: 32px 20px 8px;
+      display: grid; grid-template-columns: 1.3fr .9fr; gap: 24px; align-items: center;
+    }
+    .hero-card {
+      background: linear-gradient(180deg, rgba(24,23,38,.9), rgba(24,23,38,.6));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .hero-media { aspect-ratio: 16 / 9; background: url('Temp_Banner.PNG') center/cover no-repeat; }
+    .hero-body { padding: 22px 22px 24px; }
+    .kicker { color: var(--brand-2); font-weight: 600; letter-spacing: .5px; text-transform: uppercase; font-size: .85rem; }
+    h1 { margin: 6px 0 10px; font-family: "Orbitron", sans-serif; font-weight: 800; font-size: clamp(28px, 5vw, 44px); line-height: 1.05; }
+    .lead { color: var(--muted); font-size: 1.05rem; }
+    .cta-row { display:flex; gap:12px; margin-top: 18px; flex-wrap: wrap; }
+    .btn {
+      display:inline-flex; align-items:center; gap:10px; border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      padding: 12px 16px; border-radius: 14px; color: var(--text); font-weight: 600; text-shadow: 0 1px 0 rgba(0,0,0,.2);
+    }
+    .btn:hover { outline: 1px solid var(--ring); background: linear-gradient(180deg, rgba(138,92,246,.15), rgba(255,255,255,.02)); }
+    .btn.primary { background: linear-gradient(180deg, rgba(138,92,246,.25), rgba(138,92,246,.05)); border-color: rgba(138,92,246,.45); }
+
+    @media (max-width: 980px) { .hero { grid-template-columns: 1fr; } }
+
+    /* Gallery */
+    .section { max-width: 1200px; margin: 10px auto 40px; padding: 0 20px; }
+    .section h2 { font-family: "Orbitron", sans-serif; font-weight: 800; font-size: clamp(22px, 3.8vw, 34px); letter-spacing: .2px; margin: 18px 0; }
+    .muted { color: var(--muted); }
+
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
+    .col { grid-column: span 4; }
+    @media (max-width: 1000px) { .col { grid-column: span 6; } }
+    @media (max-width: 640px) { .col { grid-column: span 12; } }
+
+    .card {
+      background: linear-gradient(180deg, var(--card), var(--card-elev));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display:flex; flex-direction: column;
+    }
+    .media { aspect-ratio: 4 / 3; overflow: hidden; }
+    .media img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+    .card:hover .media img { transform: scale(1.04); }
+    .card-body { padding: 16px 16px 18px; display:flex; flex-direction: column; gap: 10px; }
+    .card-body p { margin: 0; color: var(--muted); }
+    .chip { display:inline-flex; align-items:center; gap:8px; font-size: .8rem; color: var(--muted); }
+
+    .actions { margin-top: 6px; display:flex; gap:10px; }
+    .ghost-btn { padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,.12); background: transparent; color: var(--text); cursor: pointer; }
+    .ghost-btn:hover { background: rgba(255,255,255,.05); }
+
+    /* Lightbox */
+    dialog#lightbox { width:min(100vw, 1200px); border: none; padding:0; background: transparent; }
+    dialog::backdrop { background: rgba(8,7,12,.85); }
+    .lightbox-wrap { position: relative; }
+    .lightbox-img { width: 100%; height: auto; max-height: calc(100vh - 120px); object-fit: contain; background: #000; }
+    .lightbox-controls { position: absolute; top: 8px; right: 8px; display:flex; gap:8px; }
+    .icon-btn { border: none; background: rgba(0,0,0,.45); padding: 10px; border-radius: 12px; color: white; cursor: pointer; }
+    .icon-btn:hover { background: rgba(255,255,255,.18); }
+
+    /* Footer */
+    footer { border-top: 1px solid rgba(255,255,255,.08); margin-top: 40px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 24px 20px; display:grid; grid-template-columns: 1fr auto; gap: 14px; align-items:center; color: var(--muted); }
+    .links a { margin-right: 14px; color: var(--muted); }
+    .links a:hover { color: var(--text); }
+
+    /* Accessibility & motion */
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  </style>
+</head>
+<body>
+  <a class="sr-only" href="#content">Skip to content</a>
+
+  <!-- Header / Navigation -->
+  <header>
+    <div class="nav" role="navigation" aria-label="Main">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-name">Astrocade</div>
+      </div>
+      <nav class="menu" aria-label="Primary">
+        <a href="index.html" aria-current="page">Games</a>
+        <a href="prices.html">Prices</a>
+        <a href="prizes.html">Prizes</a>
+        <a href="TCGMain.html">TCG</a>
+        <a href="Events.html">Events</a>
+        <a href="Bookings.html">Bookings</a>
+        <a href="Access.html">Access</a>
+        <a href="careers.html">Careers</a>
+      </nav>
+      <button class="menu-toggle" id="menuToggle" aria-controls="mobileDrawer" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i> Menu
+      </button>
+    </div>
+    <aside id="mobileDrawer" class="drawer" aria-hidden="true" aria-label="Mobile Menu">
+      <button class="ghost-btn" id="drawerClose" style="margin-bottom:12px"><i class="fa-solid fa-xmark"></i> Close</button>
+      <a href="index.html" aria-current="page">Games</a>
+      <a href="prices.html">Prices</a>
+      <a href="prizes.html">Prizes</a>
+      <a href="TCGMain.html">TCG</a>
+      <a href="Events.html">Events</a>
+      <a href="Bookings.html">Bookings</a>
+      <a href="Access.html">Access</a>
+      <a href="careers.html">Careers</a>
+    </aside>
+  </header>
+
+  <!-- Hero -->
+  <main id="content">
+    <section class="hero" aria-label="Intro">
+      <article class="hero-card">
+        <div class="hero-media" role="img" aria-label="Arcade banner"></div>
+        <div class="hero-body">
+          <div class="kicker">Welcome to the next level</div>
+          <h1>Play, compete, and win at Astrocade</h1>
+          <p class="lead">From rhythm battles to co‑op classics, power up with a tap‑to‑play card and trade tickets for prizes. Family‑friendly. Tournament‑ready. Always fun.</p>
+          <div class="cta-row">
+            <a class="btn primary" href="Bookings.html"><i class="fa-solid fa-ticket"></i> Book now</a>
+            <a class="btn" href="Events.html"><i class="fa-regular fa-calendar"></i> Events</a>
+          </div>
+        </div>
+      </article>
+      <div class="hero-side">
+        <div class="card" style="padding:18px 18px 8px;">
+          <h2 style="margin:0 0 10px">Today at a glance</h2>
+          <p class="muted" style="margin:0 0 12px">Open late on weekends. Ask about party packages and TCG crossover nights.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px">
+            <a class="btn" href="Access.html"><i class="fa-solid fa-universal-access"></i> Accessibility</a>
+            <a class="btn" href="prices.html"><i class="fa-solid fa-coins"></i> Prices</a>
+          </div>
+          <small class="muted">Tip: Tap any image below to view full‑screen.</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="section" aria-label="Games & Experiences">
+      <h2>Games & Experiences</h2>
+      <p class="muted" style="margin-top:-6px; margin-bottom:14px">A hand‑picked mix of competitive showdowns, ticket games, and family favourites.</p>
+
+      <div class="grid">
+        <!-- Card 1 -->
+        <article class="card col">
+          <div class="media">
+            <img src="Placement_Image.png" alt="Multiplayer racing bikes arcade" loading="lazy" data-full="Arcade_Bikes.jpg" />
+          </div>
+          <div class="card-body">
+            <div class="chip"><i class="fa-solid fa-people-group"></i> Multiplayer</div>
+            <p>Compete or co‑operate on shared screens with thrilling challenges.</p>
+            <div class="actions">
+              <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card col">
+          <div class="media">
+            <img src="Placement_Image2.webp" alt="Ticket redemption crane machine" loading="lazy" data-full="Arcade_Grabstix.jpg" />
+          </div>
+          <div class="card-body">
+            <div class="chip"><i class="fa-solid fa-ticket"></i>Visually entertaining</div>
+            <p>It's not just an aracade, it's a an immersive experience!</p>
+            <div class="actions">
+              <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card col">
+          <div class="media">
+            <img src="Placement_Image3.png" alt="Gacha prize machine close‑up" loading="lazy" data-full="Arcade_Gatcha.jpg" />
+          </div>
+          <div class="card-body">
+            <div class="chip"><i class="fa-solid fa-gift"></i> Something for everyone</div>
+            <p>Large collection to choose from! From retro to next generation</p>
+            <div class="actions">
+              <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="card col">
+          <div class="media">
+            <img src="Placement_Image4.webp" alt="Ticket counter with prize selection" loading="lazy" data-full="Arcade_Closeup2.jpg" />
+          </div>
+          <div class="card-body">
+            <div class="chip"><i class="fa-solid fa-store"></i> Community</div>
+            <p>Establish community, build on friendly competition, make memories.</p>
+            <div class="actions">
+              <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="card col">
+          <div class="media">
+            <img src="Arcade_Closeup2.jpg" alt="Family playing together on a motion game" loading="lazy" data-full="Arcade_WildThing.jpg" />
+          </div>
+          <div class="card-body">
+            <div class="chip"><i class="fa-solid fa-children"></i> Family</div>
+            <p>Fun for every age — easy starts, big smiles, memorable moments.</p>
+            <div class="actions">
+              <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="card col">
+          <div class="media">
+            <img src="Placement_Image5.jpg" alt="Display of arcade prizes" loading="lazy" data-full="Arcade_Prizes.jpg" />
+          </div>
+          <div class="card-body">
+            <div class="chip"><i class="fa-solid fa-star"></i> Trading Card Games</div>
+            <p>Yu-Gi-Oh!, Pokemon, Magic the Gathering, Riftbound and Lorcana. Official tournament venue!</p>
+            <div class="actions">
+              <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 7 -->
+        <article class="card col">
+          <div class="media">
+            <img src="Placement_Image6.jpg" alt="Player hitting high score" loading="lazy" data-full="Arcade_Closeup.jpg" />
+          </div>
+          <div class="card-body">
+            <div class="chip"><i class="fa-solid fa-trophy"></i>Live tournaments</div>
+            <p>Scheduled tournament play, all live streamed and endorsed.</p>
+            <div class="actions">
+              <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 8 -->
+        <article class="card col">
+          <div class="media">
+            <img src="Arcade_Stepmania.jpg" alt="Zombie shooter arcade cabinet" loading="lazy" data-full="Arcade_Zombie.jpg" />
+          </div>
+          <div class="card-body">
+            <div class="chip"><i class="fa-solid fa-id-card"></i> Tap‑to‑play</div>
+            <p>Load your card once. Play anything. No coins, no fuss.</p>
+            <div class="actions">
+              <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 9 -->
+        <article class="card col">
+          <div class="media">
+            <img src="Arcade_Closeup3.jpg" alt="Claw machine with plush prizes" loading="lazy" data-full="Arcade_Space.jpg" />
+          </div>
+          <div class="card-body">
+            <div class="chip"><i class="fa-solid fa-claw-marks"></i> Crane games</div>
+            <p>Grab the claw and go for it — a perfect mix of skill and luck.</p>
+            <div class="actions">
+              <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox Dialog (bug‑free; uses clicked image src) -->
+  <dialog id="lightbox" aria-label="Image viewer">
+    <div class="lightbox-wrap">
+      <img id="lightboxImg" class="lightbox-img" alt="Expanded gallery image" />
+      <div class="lightbox-controls">
+        <button class="icon-btn" id="lbClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+        <a class="icon-btn" id="lbDownload" href="#" download aria-label="Download image"><i class="fa-solid fa-download"></i></a>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="links">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <div class="social">
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile drawer
+    const toggle = document.getElementById('menuToggle');
+    const drawer = document.getElementById('mobileDrawer');
+    const closeBtn = document.getElementById('drawerClose');
+    function openDrawer(){ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); toggle.setAttribute('aria-expanded','true'); }
+    function closeDrawer(){ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); toggle.setAttribute('aria-expanded','false'); }
+    toggle?.addEventListener('click', () => openDrawer());
+    closeBtn?.addEventListener('click', () => closeDrawer());
+    drawer?.addEventListener('click', (e)=>{ if(e.target === drawer) closeDrawer(); });
+
+    // Lightbox (uses the clicked image's data-full or src)
+    const dialog = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightboxImg');
+    const lbDownload = document.getElementById('lbDownload');
+
+    document.querySelectorAll('.card .view, .card .media img').forEach(el => {
+      el.addEventListener('click', (e) => {
+        const card = e.currentTarget.closest('.card');
+        const img = card.querySelector('img');
+        const src = img.getAttribute('data-full') || img.currentSrc || img.src;
+        lbImg.src = src;
+        lbDownload.href = src;
+        dialog.showModal();
+      });
+    });
+    document.getElementById('lbClose').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && dialog.open) dialog.close(); });
+  </script>
+</body>
+</html>
