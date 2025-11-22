@@ -162,6 +162,67 @@
 
     /* Accessibility & motion */
     @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+    .pricing-table {
+  margin: 40px auto; /* centres the table */
+  width: 85%;
+  border-collapse: collapse;
+  border: 1px solid white;
+  text-align: centre;
+
+  /* galaxy gradient background */
+  background: linear-gradient(135deg, #1a1a2e, #302b63, #0f0c29);
+
+  /* neon drop glow */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
+
+  /* fade + pulse */
+  animation: fadeIn 0.8s ease-out, pulse 3s infinite alternate;
+}
+
+.pricing-table th,
+.pricing-table td {
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  padding: 14px 18px;
+  color: white;
+  font-family: "Orbitron", sans-serif;
+}
+
+.pricing-table thead th {
+  font-size: 1.2rem;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+}
+
+.pricing-table tbody tr {
+  transition: 0.25s ease;
+}
+
+.pricing-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: scale(1.02);
+  box-shadow: 0 0 10px #ffffff75;
+}
+
+/* animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  from {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
+  }
+  to {
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.45);
+  }
+}
+
   </style>
 </head>
 <body>
@@ -202,18 +263,34 @@
 
     <!-- Gallery Grid -->
     <section class="section" aria-label="Games & Experiences">
-      <h2>Activities</h2>
+      <h1>Bookings & Party</h1>
+      
+      <p class="muted" style="margin-top:-6px; margin-bottom:14px"></p>
+
+     <h2>Let's work to bring players together!</h2>
+     <p>In need of a venue? Looking to start a gaming community? An event with collegues? A space for a convention? Whatever your endevour, We are happy to accommodate your plan!</p>
+     <p>Please contact us at via email at Contact@Astrocade.com along with the details of your request. Please also include the following information with your email. </p>
+     <li>Your name.</li>
+     <li>The purpose of your booking.</li>
+     <li>A estimate of how many people will be attending your booking.</li>
+     <li>The date(s) of your event.</li>
+
+    
+  <h2>Book your celebrations with us!</h2>
+      <!-- Gallery Grid -->
+    <section class="section" aria-label="Games & Experiences">
+    
       <p class="muted" style="margin-top:-6px; margin-bottom:14px"></p>
 
       <div class="grid">
         <!-- Card 1 -->
         <article class="card col">
           <div class="media">
-            <img src="Placement_Image.png" alt="Multiplayer racing bikes arcade" loading="lazy" data-full="Arcade_Bikes.jpg" />
+            <img src="party.png" alt="Multiplayer racing bikes arcade" loading="lazy" data-full="party.png" />
           </div>
           <div class="card-body">
-            <div class="chip"><i class="fa-solid fa-people-group"></i> Multiplayer</div>
-            <p>Compete or co‑operate on shared screens with thrilling challenges.</p>
+            <div class="chip"><i class="fa-solid fa-people-group"></i>Birthday parties!</div>
+            <p>A time to celebrate! Book in advance for peace of mind. If you have any special requests, we get them ready in advance for you!</p>
             <div class="actions">
               <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
             </div>
@@ -223,11 +300,11 @@
         <!-- Card 2 -->
         <article class="card col">
           <div class="media">
-            <img src="Placement_Image2.webp" alt="Ticket redemption crane machine" loading="lazy" data-full="Arcade_Grabstix.jpg" />
+            <img src="stream.png" alt="Ticket redemption crane machine" loading="lazy" data-full="stream.png" />
           </div>
           <div class="card-body">
-            <div class="chip"><i class="fa-solid fa-ticket"></i>Visually entertaining</div>
-            <p>It's not just an aracade, it's a an immersive experience!</p>
+            <div class="chip"><i class="fa-solid fa-ticket"></i>Birthday boy/girl shoutout!</div>
+            <p>Special guest access! The birthday boy/girl is welcome to attend our live video game stream!</p>
             <div class="actions">
               <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
             </div>
@@ -237,100 +314,62 @@
         <!-- Card 3 -->
         <article class="card col">
           <div class="media">
-            <img src="Placement_Image3.png" alt="Gacha prize machine close‑up" loading="lazy" data-full="Arcade_Gatcha.jpg" />
+            <img src="ticket.png" alt="Gacha prize machine close‑up" loading="lazy" data-full="ticket.png" />
           </div>
           <div class="card-body">
-            <div class="chip"><i class="fa-solid fa-gift"></i> Something for everyone</div>
-            <p>Large collection to choose from! From retro to next generation</p>
+            <div class="chip"><i class="fa-solid fa-gift"></i>A gift from us to them!</div>
+            <p>We provide play passes that grants access to ALL video games at the venue! Heres to a party worth remembering!</p>
             <div class="actions">
               <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
             </div>
           </div>
         </article>
 
-        <!-- Card 4 -->
-        <article class="card col">
-          <div class="media">
-            <img src="Placement_Image4.webp" alt="Ticket counter with prize selection" loading="lazy" data-full="Arcade_Closeup2.jpg" />
-          </div>
-          <div class="card-body">
-            <div class="chip"><i class="fa-solid fa-store"></i> Community</div>
-            <p>Establish community, build on friendly competition, make memories.</p>
-            <div class="actions">
-              <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
-            </div>
-          </div>
-        </article>
+      </div>
+    </section>
+  </main>
+   <br></br>
 
-        <!-- Card 5 -->
-        <article class="card col">
-          <div class="media">
-            <img src="Arcade_Closeup2.jpg" alt="Family playing together on a motion game" loading="lazy" data-full="Arcade_WildThing.jpg" />
-          </div>
-          <div class="card-body">
-            <div class="chip"><i class="fa-solid fa-children"></i> Family</div>
-            <p>Fun for every age — easy starts, big smiles, memorable moments.</p>
-            <div class="actions">
-              <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
-            </div>
-          </div>
-        </article>
+     <table class="pricing-table">
+  <thead>
+    <tr>
+      <th>Package</th>
+      <th>Details</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Standard Party Package</td>
+      <td>4 hours access + party area + 1 unlimited play ticket </td>
+      <td>£30</td>
+    </tr>
+    <tr>
+      <td>Premium Party Package</td>
+      <td>All day access + party area + 3 unlimited-play tickets</td>
+      <td>£45</td>
+    </tr>
+    <tr>
+      <td>Unlimited Play pass</td>
+      <td>Unlimited access day pass for an additional guest</td>
+      <td>£10 per person</td>
+    </tr>
+    
+  </tbody>
+</table>
+<br></br>
 
-        <!-- Card 6 -->
-        <article class="card col">
-          <div class="media">
-            <img src="Placement_Image5.jpg" alt="Display of arcade prizes" loading="lazy" data-full="Arcade_Prizes.jpg" />
-          </div>
-          <div class="card-body">
-            <div class="chip"><i class="fa-solid fa-star"></i> Trading Card Games</div>
-            <p>Yu-Gi-Oh!, Pokemon, Magic the Gathering, Riftbound and Lorcana. Official tournament venue!</p>
-            <div class="actions">
-              <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 7 -->
-        <article class="card col">
-          <div class="media">
-            <img src="Placement_Image6.jpg" alt="Player hitting high score" loading="lazy" data-full="Arcade_Closeup.jpg" />
-          </div>
-          <div class="card-body">
-            <div class="chip"><i class="fa-solid fa-trophy"></i>Live tournaments</div>
-            <p>Scheduled tournament play, all live streamed and endorsed.</p>
-            <div class="actions">
-              <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 8 -->
-        <article class="card col">
-          <div class="media">
-            <img src="Arcade_Stepmania.jpg" alt="Zombie shooter arcade cabinet" loading="lazy" data-full="Arcade_Zombie.jpg" />
-          </div>
-          <div class="card-body">
-            <div class="chip"><i class="fa-solid fa-id-card"></i> Tap‑to‑play</div>
-            <p>Load your card once. Play anything. No coins, no fuss.</p>
-            <div class="actions">
-              <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 9 -->
-        <article class="card col">
-          <div class="media">
-            <img src="Arcade_Closeup3.jpg" alt="Claw machine with plush prizes" loading="lazy" data-full="Arcade_Space.jpg" />
-          </div>
-          <div class="card-body">
-            <div class="chip"><i class="fa-solid fa-claw-marks"></i> Crane games</div>
-            <p>Grab the claw and go for it — a perfect mix of skill and luck.</p>
-            <div class="actions">
-              <button class="ghost-btn view" aria-label="View bigger"><i class="fa-regular fa-image"></i></button>
-            </div>
-          </div>
-        </article>
+     <p>To ensure your area space for your party is secured at Astrocade we request that you contact us via email at Contact@astrocade.com along with your preffered package selection and add ons. Bookings can be done over the phone or in person at the arcade.</p>
+     <p>A parent MUST be present for a birthday party where there is nobody above 18 present. We reserve the right to reject the party booking should a parent not be present on the day.</p>
+     <p>IMPORTANT: By confirming a party with Astrocade you agree to our TERMS AND CONDITIONS.</p>
+     <h2>Party FAQ</h2>
+     <h3>What does the birthday boy/girl receive?</h3>
+     <p>The birthday boy/girl receives FULL UNLIMATED access to ALL games! Along with this, the birthday boy/girl may select up to 3 of their friends to also receive unlimted access to the arcade. Please note that we are required by law to ensure we follow PEGI guidelines. Please speak to a member of staff should you have any questions or concerns regarding this.</p>
+     <h3>Is bringing in birthday food/drink allowed? If so, what do you charge?</h3>
+     <p>Bringing in your own party food and drink is allowed! There is NO CHARGE for this! We ask that you keep all food and drink away from the arcade games and technology, a designated space will be provided to you. We cannot allow drinks in glass containers, we are happy to provide paper cups for a small charge at the counter or bring your own.</p>
+<h3>Is alcohol allowed?</h3>
+<p>No. This is due to ensuring the safety of any other younger players who may attend the arcade.</p>
+        
       </div>
     </section>
   </main>
